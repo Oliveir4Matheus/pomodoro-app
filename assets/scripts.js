@@ -54,15 +54,15 @@ function decreaseTimer(min,seg) {
 
 function selectShortBreakSession() {
     breakPomodoroTimer()
-    showTimerInDisplay(0,7)
+    showTimerInDisplay(10,0)
 }
 function selectLongBreakSession() {
     breakPomodoroTimer()
-    showTimerInDisplay(0,6)
+    showTimerInDisplay(20,0)
 }
 function selectPomodoroSession() {
     breakPomodoroTimer()
-    showTimerInDisplay(0,5)
+    showTimerInDisplay(25,0)
 }
 function breakPomodoroTimer(){
     if(loopPomodoroTimer){
