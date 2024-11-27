@@ -11,7 +11,8 @@
 
 */
 let pomodoroTimer = document.querySelector("#pomodoroTimer")
-let timerPomodoro
+let numberSessions = document.querySelector('#numberSessions')
+let loopPomodoroTimer
 
 function convertDataInDisplayInNumber(){
     timeInDisplay = pomodoroTimer.innerHTML.split(":")
@@ -19,12 +20,10 @@ function convertDataInDisplayInNumber(){
     timeInDisplay[1] = Number(timeInDisplay[1])
     return timeInDisplay
 }
-
 function showTimerInDisplay(min,seg){
     seg = seg < 10 ? `0${seg}` : seg
     pomodoroTimer.innerHTML = `${min}:${seg}`
 }
-
 function controlTimer(valueControl){
     let [min,seg] = convertDataInDisplayInNumber()
     switch(valueControl){
@@ -41,7 +40,6 @@ function controlTimer(valueControl){
     }
     showTimerInDisplay(min,seg)
 }
-
 function decreaseTimer(min,seg) {
     if(seg == 0){
         seg = 59
@@ -56,32 +54,53 @@ function decreaseTimer(min,seg) {
 
 function selectShortBreakSession() {
     breakPomodoroTimer()
-    showTimerInDisplay(10,0)
+    showTimerInDisplay(0,7)
 }
 function selectLongBreakSession() {
     breakPomodoroTimer()
-    showTimerInDisplay(20,0)
+    showTimerInDisplay(0,6)
 }
 function selectPomodoroSession() {
     breakPomodoroTimer()
-    showTimerInDisplay(25,0)
+    showTimerInDisplay(0,5)
 }
 function breakPomodoroTimer(){
-    if(timerPomodoro){
-        clearInterval(timerPomodoro)
+    if(loopPomodoroTimer){
+        clearInterval(loopPomodoroTimer)
     }
 }
+
+function controlSession(valueControl){
+    switch(valueControl){
+        case "+":
+            numberSessions.innerHTML++
+        break
+        case "-":
+            numberSessions.innerHTML--
+        break
+    }
+}
+
 function reset(){
     selectPomodoroSession()
 }
 function start(){
     let [min,seg] = convertDataInDisplayInNumber()
-    timerPomodoro = setInterval(() => {
+    loopPomodoroTimer = setInterval(() => {
         [min,seg] =  decreaseTimer(min,seg)
         showTimerInDisplay(min,seg)
-        if (min == 0 && seg == 0){
-            selectShortBreakSession()
+        if(numberSessions.innerHTML == "0"){
+            selectLongBreakSession()
             start()
+        }
+        if (min == 0 && seg == 0 && numberSessions.innerHTML >= 0){
+            selectShortBreakSession()
+            controlSession("-")
+            start()
+        } 
+        if (numberSessions.innerHTML =="0" && min == 0 && seg == 0){
+            numberSessions.innerHTML = 4
+            selectPomodoroSession()
         }
     },1000)
 }
