@@ -1,15 +1,4 @@
-/*
-- [ ] selectPomodoroSession()
-- [ ] selectShortBreakSession()
-- [ ] SelectLongBreakSession()
-- [ ] increaseTime()
-- [ ] decreaseTime()
-- [ ] startPomodoro()
-- [ ] resetPomodoro()
-- [ ] configPomodoro()
 
-
-*/
 let pomodoroTimer = document.querySelector("#pomodoroTimer")
 let numberSessions = document.querySelector('#numberSessions')
 let loopPomodoroTimer
