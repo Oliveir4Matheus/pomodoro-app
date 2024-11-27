@@ -15,11 +15,11 @@
         <div id="btnTopContainer">
             <button onclick="selectPomodoroSession()">Pomodoro</button>
             <button onclick="selectShortBreakSession()">Short break</button>
-            <button onclick="SelectLongBreakSession()">Long break</button>
+            <button onclick="selectLongBreakSession()">Long break</button>
         </div>
         <div id="pomodoroContainer">
-            <button onclick="increaseTime()">[t]</button>
-            <button onclick="decreaseTime()">[b]</i></button>
+            <button onclick="controlTimer('+')">[t]</button>
+            <button onclick="controlTimer('-')">[b]</i></button>
             <span id="pomodoroTimer">25:00</span>
         </div>
         <div id="btnBottomContainer">

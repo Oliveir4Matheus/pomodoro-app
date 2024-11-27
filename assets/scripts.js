@@ -11,6 +11,7 @@
 
 */
 let pomodoroTimer = document.querySelector("#pomodoroTimer")
+let timerPomodoro
 
 function convertDataInDisplayInNumber(){
     timeInDisplay = pomodoroTimer.innerHTML.split(":")
@@ -18,26 +19,30 @@ function convertDataInDisplayInNumber(){
     timeInDisplay[1] = Number(timeInDisplay[1])
     return timeInDisplay
 }
+
 function showTimerInDisplay(min,seg){
-    console.log(seg)
     seg = seg < 10 ? `0${seg}` : seg
     pomodoroTimer.innerHTML = `${min}:${seg}`
 }
-function decreaseTime(){
+
+function controlTimer(valueControl){
     let [min,seg] = convertDataInDisplayInNumber()
-    if (min > 0) {
-        min--
-        showTimerInDisplay(min,seg)
+    switch(valueControl){
+        case "+":
+            if (min < 60){
+                min++
+            }
+        break
+        case "-":
+            if (min > 0) {
+                min--
+            }
+        break
     }
+    showTimerInDisplay(min,seg)
 }
-function increaseTime(){
-    let [min,seg] = convertDataInDisplayInNumber()
-    if (min < 60){
-        min++
-        showTimerInDisplay(min,seg)
-    }
-}
-function startDecreaseTime(min,seg) {
+
+function decreaseTimer(min,seg) {
     if(seg == 0){
         seg = 59
         min--
@@ -49,14 +54,34 @@ function startDecreaseTime(min,seg) {
 
 }
 
-function startPomodoro(){
+function selectShortBreakSession() {
+    breakPomodoroTimer()
+    showTimerInDisplay(10,0)
+}
+function selectLongBreakSession() {
+    breakPomodoroTimer()
+    showTimerInDisplay(20,0)
+}
+function selectPomodoroSession() {
+    breakPomodoroTimer()
+    showTimerInDisplay(25,0)
+}
+function breakPomodoroTimer(){
+    if(timerPomodoro){
+        clearInterval(timerPomodoro)
+    }
+}
+function reset(){
+    selectPomodoroSession()
+}
+function start(){
     let [min,seg] = convertDataInDisplayInNumber()
-    let timerPomodoro = setInterval(() => {
-        [min,seg] =  startDecreaseTime(min,seg)
+    timerPomodoro = setInterval(() => {
+        [min,seg] =  decreaseTimer(min,seg)
         showTimerInDisplay(min,seg)
-        console.log(min,seg)
         if (min == 0 && seg == 0){
-            clearInterval(timerPomodoro)
+            selectShortBreakSession()
+            start()
         }
     },1000)
 }
