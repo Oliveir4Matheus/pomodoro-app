@@ -12,24 +12,38 @@
 </head>
 <body>
     <main>
-        <div id="btnTopContainer">
-            <button onclick="selectPomodoroSession()">Pomodoro</button>
-            <button onclick="selectShortBreakSession()">Short break</button>
-            <button onclick="selectLongBreakSession()">Long break</button>
-        </div>
         <div id="pomodoroContainer">
             <div id ="sessionsContainer">
                 <span id="numberSessions">4</span>
             </div>
-            <span id="pomodoroTimer">25:00</span>
+            <span class="pomodoroTimer">25:00</span>
         </div>
         <div id="btnBottomContainer">
             <button onclick="start()"><img src="./assets/img/play.svg"></button>
             <button onclick="reset()"><img src="./assets/img/reset.svg"></button>
-            <button onclick="configPomodoro()"><img src="./assets/img/config.svg"></button>
+            <button onclick="openControlPanel()"><img src="./assets/img/config.svg"></button>
         </div>
-        
     </main>
+    <div id="controlContainer">
+        <div id="controlHeaderContainer">
+            <span>logo</span>
+            <span>painel de controle</span>
+            <button onclick="closeControlPanel()">X</button>
+        </div>
+        <div id="controlContentContainer">
+            <div id="btnTopContainer">
+                <button onclick="selectPomodoroSession()">Pomodoro</button>
+                <button onclick="selectShortBreakSession()">Short break</button>
+                <button onclick="selectLongBreakSession()">Long break</button>
+            </div>
+            <div id="pomodoroTimerContainer">
+                <button onclick="controlTimer('-')"><</button>
+                <span class="pomodoroTimer" style="color:white">25:00</span>
+                <button onclick="controlTimer('+')">></button>
+            </div>
+        </div>
+        <div></div>
+    </div>
     <script src="./assets/scripts.js"></script>
 </body>
 </html>

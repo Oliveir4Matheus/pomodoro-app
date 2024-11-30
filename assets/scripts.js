@@ -1,17 +1,18 @@
 
-let pomodoroTimer = document.querySelector("#pomodoroTimer")
+let pomodoroTimer = document.querySelectorAll(".pomodoroTimer")
 let numberSessions = document.querySelector('#numberSessions')
 let loopPomodoroTimer
 
 function convertDataInDisplayInNumber(){
-    timeInDisplay = pomodoroTimer.innerHTML.split(":")
+    timeInDisplay = pomodoroTimer[0].innerHTML.split(":")
     timeInDisplay[0] = Number(timeInDisplay[0])
     timeInDisplay[1] = Number(timeInDisplay[1])
     return timeInDisplay
 }
 function showTimerInDisplay(min,seg){
     seg = seg < 10 ? `0${seg}` : seg
-    pomodoroTimer.innerHTML = `${min}:${seg}`
+    pomodoroTimer[0].innerHTML = `${min}:${seg}`
+    pomodoroTimer[1].innerHTML = `${min}:${seg}`
 }
 function controlTimer(valueControl){
     let [min,seg] = convertDataInDisplayInNumber()
@@ -92,4 +93,13 @@ function start(){
             selectPomodoroSession()
         }
     },1000)
+}
+// control panel
+function openControlPanel(){
+        panel = document.querySelector("#controlContainer")
+    panel.style.visibility = "visible"
+}
+function closeControlPanel(){
+    panel = document.querySelector("#controlContainer")
+    panel.style.visibility = "hidden"
 }
